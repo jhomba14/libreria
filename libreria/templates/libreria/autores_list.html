@@ -1,0 +1,77 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %}
+<div>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container">
+            <a href="#">
+                <h2 class="text-center all-tittles">Listado de Autores</h2>
+            </a>
+            {% if perms.libreria.add_autores %}
+            <a href="{% url 'lib:autores_new' %}">
+                <h2 class="text-center all-tittles">Agregar Autores</h2>
+            </a>
+            {% endif %}
+            <a class="navbar-brand" href="#"></a>
+            <form class="form-inline my-2 my-lg-0" method="POST">
+            {% csrf_token %}
+                <input type="text" class="form-control mr-sm-2" placeholder="Buscar..." name="buscar" value="{{ request.POST.buscar }}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+
+            <div class="table-responsive">
+                <div class="div-table" style="margin:0 !important;">
+                    <div class="div-table-row div-table-row-list">
+                        {% if not autores %}
+                        <div class="alert alert-info">No hay Autores</div>
+                        {% else %}
+                        <table id="datatable" class="table table-striped table-bordered" >
+                            <thead>
+                                <th>Id</th>
+                                <th>Apellido</th>
+                                <th>Nombres</th>
+                                {% if perms.libreria.change_autores %}
+                                <th>Actualizar</th>
+                                {% endif %}
+                                {% if perms.libreria.delete_autores %}
+                                <th>Eliminar</th>
+                                {% endif %}
+                            </thead>
+                            <tbody>
+                                {% for autor in autores %}
+                                <tr>
+                                    <td>{{ autor.id_autor }}</td>
+                                    <td>{{ autor.apellidos }}</td>
+                                    <td>{{ autor.nombres }}</td>
+                                    {% if perms.libreria.change_autores %}
+                                    <td><a href="{% url 'lib:autores_edit' autor.id_autor %}" class="btn btn-info" ><i class="zmdi zmdi-file-text"></i></a></td>
+                                    {% endif %}
+                                    {% if perms.libreria.delete_autores %}
+                                    <td><a href="{% url 'lib:autores_delete' autor.id_autor %}" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a></td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tr>
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+{% endblock section %}
+{% block js_page %}
+<script>
+    $(document).ready(function() {
+        $('#datatable').dataTable( {
+        "searching": false,
+        pageLength : 5,
+        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+        "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+        }
+        });
+    });
+</script>
+{% endblock js_page %}

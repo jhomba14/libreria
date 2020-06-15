@@ -1,0 +1,62 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %} {% load static %}
+
+<body>
+    <div class="container-fluid" style="margin: 50px 0;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <img src="{% static 'prjaprendizjbhm/assets/img/user01.png' %}" alt="user" class="img-responsive center-box" style="max-width: 110px;">
+            </div>
+            {% if obj %}
+            <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                Bienvenido a la sección para actualizar categorias del sistema, puedes editar los campos que desees del siguiente formulario 
+            </div>
+            {% else %}
+            <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                Bienvenido a la sección para registrar nuevas categorias al sistema, debes de llenar todos los campos del siguiente formulario para registrar un autor
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 lead">
+                <ol class="breadcrumb">
+                    <li class="active">Nueva Categoria</li>
+                    <li><a href="{% url 'lib:categorias' %}">Listado de Categorias</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="container-flat-form">
+            {% if obj %}
+            <div class="title-flat-form title-flat-red">Actualizar Categoria</div>
+            {% else %}
+            <div class="title-flat-form title-flat-blue">Registrar una nueva Categoria</div>
+            {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                        <div class="group-material">
+                            <input type="text" class="material-control tooltips-general" name="categoria" id="categoria" placeholder="Categoria" required="" maxlength="20" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top" title="Escriba la categoria a ingresar"
+                            value="{% if obj %}{{ obj.categoria }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Categoria</label>
+                        </div>
+                        <p class="text-center">
+                            <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
+                            <button type="submit" class="btn btn-primary" style="margin-right: 20px;"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                            <a href="{% url 'lib:categorias' %}" class="btn btn-success"><span class="zmdi zmdi-fullscreen-exit"></span> &nbsp;&nbsp; Cancelar </a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock section %}

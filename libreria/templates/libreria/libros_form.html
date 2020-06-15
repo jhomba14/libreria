@@ -1,0 +1,99 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %} {% load static %}
+
+<body>
+    <div class="container-fluid" style="margin: 50px 0;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <img src="{% static 'prjaprendizjbhm/assets/img/user01.png' %}" alt="user" class="img-responsive center-box" style="max-width: 110px;">
+            </div>
+            {% if obj %}
+            <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                Bienvenido a la sección para actualizar libros del sistema, puedes editar los campos que desees del siguiente formulario 
+            </div>
+            {% else %}
+            <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                Bienvenido a la sección para registrar nuevos libros al sistema, debes de llenar todos los campos del siguiente formulario para registrar un libro
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 lead">
+                <ol class="breadcrumb">
+                    <li class="active">Nuevo Libro</li>
+                    <li><a href="{% url 'lib:libros' %}">Listado de Libros</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="container-flat-form">
+            {% if obj %}
+            <div class="title-flat-form title-flat-red">Actualizar Libro</div>
+            {% else %}
+            <div class="title-flat-form title-flat-blue">Registrar un Libro</div>
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                        <div class="group-material">
+                            <input type="number" class="material-control tooltips-general" name="isbn" id="id_isbn" placeholder="Ingrese el ISBN del libro" required="" maxlength="6" data-toggle="tooltip" data-placement="top" title="ISBN"
+                            value="{% if obj %}{{ obj.isbn }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>ISBN</label>
+                        </div>
+                        <div class="group-material">
+                            <input type="text" class="material-control tooltips-general" name="titulo" id="id_titulo" placeholder="Titulo del Libro" required="" maxlength="70" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del Libro"
+                            value="{% if obj %}{{ obj.titulo }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Titulo</label>
+                        </div>
+                        <div class="group-material">
+                            <input type="date" class="material-control tooltips-general" name="fecha_pub" id="id_titulo" placeholder="Fecha d epublicacion" required=""  data-toggle="tooltip" data-placement="top" title="Ingresa la fecha de publicacion del Libro"
+                            value="{% if obj %}{{ obj.fecha_pub }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Fecha publicacion</label>
+                        </div>
+                        <div class="group-material">
+                            <!-- <input type="text" class="material-control tooltips-general" name="titulo" id="id_titulo" placeholder="Titulo del Libro" required="" maxlength="70" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del Libro"
+                            value="{% if obj %}{{ obj.titulo }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Titulo</label> -->
+                            {{ form.categoria }}
+                        </div>
+                        <div class="group-material">
+                            <input type="number" class="material-control tooltips-general" name="precio" id="id_precio" placeholder="Precio del Libro" required="" maxlength="10" data-toggle="tooltip" data-placement="top" title="Ingrese el valor del libro"
+                            value="{% if obj %}{{ obj.precio }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Precio</label>
+                        </div>
+                        <div class="group-material">
+                            <input type="file" class="material-control tooltips-general" accept="image/*" name="portada" id="id_portada" placeholder="Portada del Libro"  required=""  title="ingrese la foto de la Portada del Libro"
+                            value="{% if obj %}{{ obj.portada.name }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Portada</label> 
+                        </div>
+                        <!-- {{ forms.as_p }} -->
+                        <p class="text-center">
+                            <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
+                            <button type="submit" class="btn btn-primary" style="margin-right: 20px;"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                            <a href="{% url 'lib:libros' %}" class="btn btn-success"><span class="zmdi zmdi-fullscreen-exit"></span> &nbsp;&nbsp; Cancelar </a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock section %}

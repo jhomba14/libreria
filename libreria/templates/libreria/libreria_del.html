@@ -1,0 +1,26 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %} {% load static %}
+
+<form method="POST" class="form-inline">
+    {% csrf_token %}
+    <div class="col-xl-4 col-md-7 mb-6">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-4">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">¿Estás seguro de Eliminar este elemto?</div>
+                        <button type="submit" class="btn btn-danger">Si, Eliminar</button>
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-success"><span class="fa fa-undo"></span>Cancelar</a>
+                    </div>
+                    <div class="col-auto">
+                        <i class="far fa-question-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+{% endblock section %}
+
+{% block js_page %} 
+{% endblock js_page %}

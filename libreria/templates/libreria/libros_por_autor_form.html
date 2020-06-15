@@ -1,0 +1,72 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %} {% load static %}
+
+<body>
+    <div class="container-fluid" style="margin: 50px 0;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <img src="{% static 'prjaprendizjbhm/assets/img/user01.png' %}" alt="user" class="img-responsive center-box" style="max-width: 110px;">
+            </div>
+            {% if obj %}
+            <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                Bienvenido a la sección para actualizar libros por autor del sistema, puedes editar los campos que desees del siguiente formulario 
+            </div>
+            {% else %}
+             <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                Bienvenido a la sección para registrar nuevos libros por autor al sistema, debes de llenar todos los campos del siguiente formulario para registrar un libro por autor
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 lead">
+                <ol class="breadcrumb">
+                    <li class="active">Nuevo Libro Por Autor</li>
+                    <li><a href="{% url 'lib:libros_por_autor' %}">Listado de Libros Por Autores</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="container-flat-form">
+            {% if obj %}
+            <div class="title-flat-form title-flat-red">Actualizar Libro Por Autor</div>
+            {% else %}
+            <div class="title-flat-form title-flat-blue">Registrar un Libro Por Autor</div>
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                        <div class="group-material">
+                            <!-- <input type="text" class="material-control tooltips-general" name="titulo" id="id_titulo" placeholder="Titulo del Libro" required="" maxlength="70" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del Libro"
+                            value="{% if obj %}{{ obj.titulo }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Titulo</label> -->
+                            {{ form.id_autor }}
+                        </div>
+                        <div class="group-material">
+                            <!-- <input type="text" class="material-control tooltips-general" name="titulo" id="id_titulo" placeholder="Titulo del Libro" required="" maxlength="70" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top" title="Escribe el nombre del Libro"
+                            value="{% if obj %}{{ obj.titulo }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Titulo</label> -->
+                            {{ form.isbn }}
+                        </div>
+                        <!-- {{ forms.as_p }} -->
+                        <p class="text-center">
+                            <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
+                            <button type="submit" class="btn btn-primary" style="margin-right: 20px;"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                            <a href="{% url 'lib:libros_por_autor' %}" class="btn btn-success"><span class="zmdi zmdi-fullscreen-exit"></span> &nbsp;&nbsp; Cancelar </a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock section %}

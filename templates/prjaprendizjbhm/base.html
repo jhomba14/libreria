@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Inicio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="{% static 'prjaprendizjbhm/datatables/dataTables.bootstrap4.min.css" rel="stylesheet' %}">
+    <link rel="Shortcut Icon" type="image/x-icon" href="{% static 'prjaprendizjbhm/assets/icons/book.ico' %}" />
+    <script src="{% static 'prjaprendizjbhm/js/sweet-alert.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/sweet-alert.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/style.css' %}">
+    <!-- Jquery confirm-->
+    <link href="{% static  'prjaprendizjbhm/jquery_confirm/jquery-confirm.min.css' %}" rel="stylesheet">
+    <script>window.jQuery || document.write('<script src="{% static 'prjaprendizjbhm/js/jquery-1.11.2.min.js' %}"><\/script>')</script>
+    <script src="{% static 'prjaprendizjbhm/js/modernizr.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/js/main.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static  'prjaprendizjbhm/jquery_confirm/jquery-confirm.min.js' %}"></script>
+</head>
+<body>
+    <div class="navbar-lateral full-reset">
+        <div class="visible-xs font-movile-menu mobile-menu-button"></div>
+        <div class="full-reset container-menu-movile custom-scroll-containers">
+            <div class="logo full-reset all-tittles">
+                <i class="visible-xs zmdi zmdi-close pull-left mobile-menu-button" style="line-height: 55px; cursor: pointer; padding: 0 10px; margin-left: 7px;"></i> 
+                Sistema de Libreria
+            </div>
+            <figure>
+                <img src="{% static 'prjaprendizjbhm/assets/img/logo.png' %}" alt="Biblioteca" class="img-responsive center-box mCS_img_loaded" style="width:55%;">
+            </figure>
+            <div class="full-reset" style="background-color:#2B3D51; padding: 10px 0; color:#fff;">
+                <p class="text-center" style="padding-top: 15px;">Libreria JBHM</p>
+            </div>
+            <div class="full-reset nav-lateral-list-menu">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'lib:home' %}"><i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;&nbsp; Inicio</a></li>
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-edit zmdi-hc-fw"></i>&nbsp;&nbsp; Autores <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'lib:autores' %}"><i class="zmdi zmdi-assignment-account zmdi-hc-fw"></i>&nbsp;&nbsp; Autores</a></li>
+                            <li><a href="{% url 'lib:libros_por_autor' %}"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; libros Por Autores</a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Cleintes <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'lib:clientes' %}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Cleintes</a></li>
+                            <li><a href="{% url 'lib:pedidos_cliente' %}"><i class="zmdi zmdi-truck zmdi-hc-fw"></i>&nbsp;&nbsp; Pedidos Por Cleintes</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Libros y Categoria <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'lib:libros' %}"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; libros</a></li>
+                            <li><a href="{% url 'lib:categorias' %}"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Categoria</a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-settings zmdi-hc-fw"></i>&nbsp;&nbsp; Configuraciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'lib:cambiar_contraseña' %}"><i class="zmdi zmdi-settings zmdi-hc-fw"></i>&nbsp;&nbsp; Cambiar contraseña</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-settings zmdi-hc-fw"></i>&nbsp;&nbsp; #</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content-page-container full-reset custom-scroll-containers">
+        <nav class="navbar-user-top full-reset">
+        {% if user.is_authenticated %}
+            <ul class="list-unstyled full-reset">
+                <figure>
+                   <img src="{% static 'prjaprendizjbhm/assets/img/user01.png' %}" alt="user-picture" class="img-responsive img-circle center-box mCS_img_loaded">
+                </figure>   
+                <li style="color:#fff; cursor:default;">
+                    <span class="all-tittles">{{ user.username }}</span>
+                </li>
+                <li class="tooltips-general exit-system-button" data-href="{% url 'lib:logout' %}" data-placement="bottom" title="Salir del sistema">
+                    <i class="zmdi zmdi-power"></i>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="list-unstyled full-reset">
+                <li class="tooltips-general" onclick="window.location.href='{% url 'lib:login' %}'" data-placement="bottom" title="Ingresar al sistema">
+                    <i class="zmdi zmdi-key">  Ingrese al sistema </i>
+                </li>
+            </ul>
+        {% endif %}
+        </nav>
+        <div class="container">
+            <div class="page-header">
+              <h1 class="all-tittles">Sistema De Libreria JBHM <small> --- Inicio</small></h1>
+            </div>
+        </div>
+        {% block section %}
+        
+        {% endblock section %}
+        
+        <footer class="footer full-reset">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <h4 class="all-tittles">Aprendiz Desarrollador</h4>
+                        <ul class="list-unstyled">
+                            <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp;Jhon Bairon Holguin Montalvo </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright full-reset all-tittles">© 2020 Bairon Holguin</div>
+        </footer>
+    </div>
+</body>
+</html>
+
+<script>
+function mensaje(msg, color='green'){
+            
+            if (color=='success')
+            {
+                color="green";
+            }
+            if (color=='error')
+            {
+                color="red";
+            }
+            $.alert({
+                title:'',
+                theme:'material',
+                type:color,
+                content:msg
+            });
+        }
+
+        {% if messages %}
+            {% for message in messages %}
+                console.log("{{ message.tags }}");
+                mensaje("{{ message }}", "{{ message.tags }}");
+            {% endfor %}
+        {% endif %}
+</script>
+
+{% block js_page %}
+
+{% endblock js_page %}

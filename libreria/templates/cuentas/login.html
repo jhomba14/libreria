@@ -1,0 +1,76 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Inicio de sesión</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="Shortcut Icon" type="image/x-icon" href="{% static 'prjaprendizjbhm/assets/icons/book.ico' %}" />
+    <script src="{% static 'prjaprendizjbhm/js/sweet-alert.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/sweet-alert.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'prjaprendizjbhm/css/login.css' %}" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="{% static '
+            prjaprendizjbhm / js / jquery - 1.11 .2.min.js ' %}"><\/script>')
+    </script>
+    <script src="{% static 'prjaprendizjbhm/js/modernizr.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/js/main.js' %}"></script>
+</head>
+
+<body class="full-cover-background" style="background-image:url({% static 'prjaprendizjbhm/assets/img/font-login.jpg' %} );">
+    <div class="form-container">
+        <p class="text-center" style="margin-top: 17px;">
+            <i class="zmdi zmdi-account-circle zmdi-hc-5x"></i>
+        </p>
+        <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">Bienvenido!</h1>
+            <small class="text-danger">
+                {% if form.errors %}
+                    {% for field in form %}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                        {{ error|escape }}
+                        {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                    {% endif %}
+                {% endif %}
+            </small>
+        </div>
+        <h4 class="text-center all-tittles" style="margin-bottom: 30px;">inicia sesión con tu cuenta</h4>
+        <form class="user" method="POST">
+            {% csrf_token %}
+            <div class="group-material-login">
+                <input type="text" class="material-login-control" id="idusername" name="username" required="" maxlength="70">
+                <span class="highlight-login"></span>
+                <span class="bar-login"></span>
+                <label><i class="zmdi zmdi-account"></i> &nbsp; Usuario</label>
+            </div><br>
+            <div class="group-material-login">
+                <input type="password" class="material-login-control" id="id_password" name="password" required="" maxlength="70">
+                <span class="highlight-login"></span>
+                <span class="bar-login"></span>
+                <label><i class="zmdi zmdi-lock"></i> &nbsp; Contraseña</label>
+            </div> 
+            <button class="btn-login" type="submit">Ingresar al sistema &nbsp; <i class="zmdi zmdi-arrow-right"></i></button>
+        </form>
+    </div>
+</body>
+
+</html>

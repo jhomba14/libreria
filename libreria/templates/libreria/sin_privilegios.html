@@ -1,0 +1,28 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %}
+<div>
+    <div class="card border-left-danger shadow h-100 py-2">
+        <div class="card-body">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+                Usuario: <mark>{{ user.username }} --  identificado como {{ user.get_full_name }}</mark>
+            </div>
+            <div class="dropdown-divider"></div>
+
+            <div class="div">
+                <mark>No tienen suficientes privilegios</mark> para cargar opción solicitada.
+                <br>
+                <small>Para poder acceder, debes loguearte con usuario con privilegios necesario</small>
+                        
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'lib:home' %}" class="btn btn-success"><span class="fa fa-home"></span>Ir a inicio</a>
+                    <a href="{% url 'lib:login' %}" class="btn btn-success"><span class="fa fa-user"></span>Ingresar con otro usuario</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock section %}

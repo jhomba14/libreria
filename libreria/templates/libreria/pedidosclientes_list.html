@@ -1,0 +1,59 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %}
+<div>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container">
+            <a href="#">
+                <h2 class="text-center all-tittles">Listado de Pedidos por clientes</h2>
+            </a>
+            <a class="navbar-brand" href="#"></a>
+            <form class="form-inline my-2 my-lg-0" method="POST">
+            {% csrf_token %}
+                <input type="text" class="form-control mr-sm-2" placeholder="Buscar..." name="buscar" value="{{ request.POST.buscar }}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+
+            <div class="table-responsive">
+                <div class="div-table" style="margin:0 !important;">
+                    <div class="div-table-row div-table-row-list">
+                        {% if not pedidos_clientes %}
+                        <div class="alert alert-info">No hay pedidos por clientes</div>
+                        {% else %}
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <th>Id</th>
+                                <th>Numero de pedido</th>
+                                <th>Nombres del clinete</th>
+                                <th>Apellidos del cliente</th>
+                                <th>Titulo libro</th>
+                                <th>fecha de pedido</th>
+                                <th>cantidad</th>
+                                <th>Valor</th>
+                                <th>Eliminar</th>
+                                <th>Actualizar</th>
+                            </thead>
+                            <tbody>
+                                {% for pedido_cliente in pedidos_clientes %}
+                                <tr>
+                                    <td>{{ pedido_cliente.id }}</td>
+                                    <td>{{ pedido_cliente.nro_pedido }}</td>
+                                    <td>{{ pedido_cliente.id_cliente.nombres }}</td>
+                                    <td>{{ pedido_cliente.id_cliente.apellidos }}</td>
+                                    <td>{{ pedido_cliente.isbn.titulo }}</td>
+                                    <td>{{ pedido_cliente.fecha_pedido }}</td>
+                                    <td>{{ pedido_cliente.cantidad }}</td>
+                                    <td>$ {{ pedido_cliente.valor }}</td>
+                                    <td><button class="btn btn-danger"><i class="zmdi zmdi-delete"></i></button></td>
+                                    <td><button class="btn btn-info"><i class="zmdi zmdi-file-text"></i></button></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+{% endblock section %}

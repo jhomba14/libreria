@@ -1,0 +1,98 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %} {% load static %}
+
+<body>
+    <div class="container-fluid" style="margin: 50px 0;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3">
+                <img src="{% static 'prjaprendizjbhm/assets/img/user01.png' %}" alt="user" class="img-responsive center-box" style="max-width: 110px;">
+            </div>
+            {% if obj %}
+            <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                Bienvenido a la sección para actualizar clientes del sistema, puedes editar los campos que desees del siguiente formulario 
+            </div>
+            {% else %}
+            <div class="col-xs-12 col-sm-8 col-md-8 text-justify lead">
+                Bienvenido a la sección para registrar nuevos clientes al sistema, debes de llenar todos los campos del siguiente formulario para registrar un cliente
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 lead">
+                <ol class="breadcrumb">
+                    <li class="active">Nuevo Cliente</li>
+                    <li><a href="{% url 'lib:clientes' %}">Listado de Clientes</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="container-flat-form">
+            {% if obj %}
+            <div class="title-flat-form title-flat-red">Actualizar CLiente</div>
+            {% else %}
+            <div class="title-flat-form title-flat-blue">Registrar un Cliente</div>
+            {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                        <div class="group-material">
+                            <input type="number" class="material-control tooltips-general" name="identificacion" id="id_identificacion" placeholder="Ingrese la Identificacion del Cliente" required="" maxlength="12" data-toggle="tooltip" data-placement="top" title="Escribe la Identificacion del Cliente"
+                            value="{% if obj %}{{ obj.identificacion }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Identificacion</label>
+                        </div>
+                        <div class="group-material">
+                            <input type="text" class="material-control tooltips-general" name="nombres" id="id_nombres" placeholder="Nombres del Cliente" required="" maxlength="25" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top" title="Escribe los nombres del Cliente"
+                            value="{% if obj %}{{ obj.nombres }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Nombres</label>
+                        </div>
+                        <div class="group-material">
+                            <input type="text" class="material-control tooltips-general" name="apellidos" id="id_nombres" placeholder="Apellidos del Cliente" required="" maxlength="25" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top" title="Escribe los Apellidos del Cliente"
+                            value="{% if obj %}{{ obj.apellidos }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Apellidos</label>
+                        </div>
+                        <div class="group-material">
+                            <input type="number" class="material-control tooltips-general" name="telefono" id="id_telefono" placeholder="Telefono" required=""  maxlength="12" data-toggle="tooltip" data-placement="top" title="Ingresa el Telefono del Cliente"
+                            value="{% if obj %}{{ obj.telefono }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Telefono</label>
+                        </div>
+                        <div class="group-material">
+                            <input type="text" class="material-control tooltips-general" name="direccion" id="id_direccion" placeholder="Direccion del Cliente"  maxlength="128" data-toggle="tooltip" data-placement="top" title="Ingrese la Direccion del Cliente"
+                            value="{% if obj %}{{ obj.direccion }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Direccion</label>
+                        </div>
+                        <div class="group-material">
+                            <input type="email" class="material-control tooltips-general" name="correo_electronico" id="id_correo_electronico" placeholder="Email del Cliente" maxlength="128" data-toggle="tooltip" data-placement="top"  title="ingrese El correo electronico del Cliente"
+                            value="{% if obj %}{{ obj.correo_electronico }}{% endif %}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Email</label> 
+                        </div>
+                        <!-- {{ forms.as_p }} -->
+                        <p class="text-center">
+                            <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
+                            <button type="submit" class="btn btn-primary" style="margin-right: 20px;"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
+                            <a href="{% url 'lib:clientes' %}" class="btn btn-success"><span class="zmdi zmdi-fullscreen-exit"></span> &nbsp;&nbsp; Cancelar </a>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock section %}
