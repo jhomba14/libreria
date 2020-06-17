@@ -15,6 +15,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
+from .cart import Cart
+
 
 class Sinprivilegios(SuccessMessageMixin, LoginRequiredMixin, \
     PermissionRequiredMixin):
@@ -203,6 +205,16 @@ class ClientesEdit(Sinprivilegios, generic.UpdateView):
     success_url = reverse_lazy('lib:clientes')
     success_message = "Cliente Actualizado Satisfactoriamente"
 
+
+class ClientesDel(Sinprivilegios, generic.DeleteView):
+    permission_required = "libreria.delete_clientes" 
+    model = Clientes
+    template_name = "libreria/libreria_del.html"
+    context_object_name = "obj"
+    success_url = reverse_lazy('lib:clientes')
+    success_message = "Categoria Eliminada Satisfactoriamente"
+
+
 def listar_libros_por_autor(request):
     busqueda = request.POST.get("buscar")
     librosXautor = LibrosPorAutor.objects.all()
@@ -254,11 +266,45 @@ def listar_pedidos_clientes(request):
     if busqueda:
         pedidos_clientes = PedidosCliente.objects.filter(
             Q(nro_pedido__icontains = busqueda) | 
-            Q(id_cliente__exact = busqueda) |
-            Q(isbn__exact = busqueda) |
+            # Q(id_cliente__exact = busqueda) |
+            # Q(isbn__exact = busqueda) |
             Q(fecha_pedido__icontains = busqueda) | 
             Q(cantidad__icontains = busqueda) | 
             Q(valor__icontains = busqueda) 
         ).distinct()
          
     return render(request, 'libreria/pedidosclientes_list.html', {'pedidos_clientes': pedidos_clientes})
+
+# Funciones de carrito de compras
+def cart_add(request, isbn):
+    cart = Cart(request)
+    libro = Libros.objects.get(isbn=isbn)
+    cart.add(libro=libro)
+    return redirect("lib:libros")
+
+def item_clear(request, isbn):
+    cart = Cart(request)
+    libro = Libros.objects.get(isbn=isbn)
+    cart.remove(libro)
+    return redirect("lib:cart_detail")
+
+def item_increment(request, isbn):
+    cart = Cart(request)
+    libro = Libros.objects.get(isbn=isbn)
+    cart.increment(libro=libro)
+    return redirect("lib:cart_detail")
+
+def item_decrement(request, isbn):
+    cart = Cart(request)
+    libro = Libros.objects.get(isbn=isbn)
+    cart.decrement(libro=libro)
+    return redirect("lib:cart_detail")
+
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("lib:cart_detail")
+
+def cart_detail(request):
+    return render(request, 'libreria/carro.html')
+

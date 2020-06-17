@@ -48,8 +48,12 @@
                                     <td>{{ cliente.telefono }}</td>
                                     <td>{{ cliente.direccion }}</td>
                                     <td>{{ cliente.correo_electronico }}</td>
-                                    <td><button class="btn btn-danger"><i class="zmdi zmdi-delete"></i></button></td>
-                                    <td><button class="btn btn-info"><i class="zmdi zmdi-file-text"></i></button></td>
+                                    {% if perms.libreria.change_clientes %}
+                                    <td><a href="{% url 'lib:clientes_edit' cliente.id_clientes %}" class="btn btn-info"><i class="zmdi zmdi-file-text"></i></a></td>
+                                    {% endif %}
+                                    {% if perms.libreria.delete_clientes %}
+                                    <td><a href="{% url 'lib:clientes_delete' cliente.id_clientes %}" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a></td>
+                                    {% endif %}                                  
                                 </tr>
                                 {% endfor %}
                             </tbody>

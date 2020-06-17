@@ -1,0 +1,65 @@
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %}
+{% load carro_tag %}
+<div>
+    <br>
+    <div class="container">
+    <div id="carrito_compras" class="col-md-12">
+        <center>
+            <h1>
+                Mi carrito de compras, Cantidad de productos : {{request.session.cart|length}}
+            </h1>
+        </center>
+	<table id="cart" class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th style="width:38%">Libros</th>
+                <th style="width:10%">Precio</th>
+                <th style="width:8%">Cantidad</th>
+                <th style="width:18%" class="text-center">Subtotal</th>
+                <th style="width:16%">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key,value in request.session.cart.items %}
+            <tr>
+                <td data-th="Product">
+                    <div class="row">
+                        <div class="col-sm-2 hidden-xs"><img src="{{value.image}}" alt="..." class="img-responsive"></div>
+                        <div class="col-sm-10">
+                            <h4 class="nomargin">Titulo: </h4>
+                            <p> {{value.name}}</p>
+                        </div>
+                    </div>
+                </td>
+                <td data-th="Price">{{value.price}}</td>
+                <td data-th="Quantity">
+                    <input type="number" class="form-control text-center" value="{{value.quantity}}">
+                </td>
+                <td data-th="Subtotal" class="text-center">{{ value.price|multiply:value.quantity }}</td>
+                <td class="actions" data-th="">
+                    <a href="{% url 'lib:item_increment' value.product_id %}" class="btn btn-primary btn-sm"><i class="zmdi zmdi-plus"></i></i></a>
+                    <a href="{% url 'lib:item_decrement' value.product_id %}" class="btn btn-danger btn-sm"><i class="zmdi zmdi-minus"></i></i></a>
+                    <a href="#" class="btn btn-info btn-sm"><i class="zmdi zmdi-refresh"></i></a>
+                    <a href="{% url 'lib:item_clear' value.product_id %}" class="btn btn-danger btn-sm"><i class="zmdi zmdi-close"></i></a>								
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><a href="{% url 'lib:libros' %}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuar Comprando</a></td>
+                <td><a href="{% url 'lib:cart_clear' %}" class="btn btn-danger"><i class="fa fa-angle-left"></i> Vaciar carro de compras</a></td>
+                <td colspan="1" class="hidden-xs"></td>
+                <td class="hidden-xs text-center"><strong>{{ cart_total_amount }}</strong></td>
+                <td><a href="#" class="btn btn-success btn-block">Comprar <i class="fa fa-angle-right"></i></a></td>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+</div>
+
+{% endblock section %}
+
+{% block js_page %}
+
+{% endblock js_page %}

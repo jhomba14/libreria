@@ -1,6 +1,5 @@
 {% extends 'prjaprendizjbhm/base.html' %}
 {% block section %}
-{% if 'Administradores' ==  request.user.groups.all.0.name or user.is_superuser%} 
 <section class="full-reset text-center" style="padding: 40px 0;">
     <article class="tile">
         <div class="tile-icon full-reset"><i  class="zmdi zmdi-assignment-account"><a ></a> </i></div>
@@ -12,11 +11,13 @@
         <div class="tile-name all-tittles">Categorias</div>
         <div class="tile-num full-reset">6</div>
     </article>
+    {% if user.is_authenticated %}
     <article class="tile">
         <div class="tile-icon full-reset"><i class="zmdi zmdi-male-alt"></i></div>
         <div class="tile-name all-tittles">Clientes</div>
         <div class="tile-num full-reset">5</div>
     </article>
+    {% endif %}
     <article class="tile">
         <div class="tile-icon full-reset"><i class="zmdi zmdi-book"></i></div>
         <div class="tile-name all-tittles" style="width: 90%;">Libros</div>
@@ -27,11 +28,16 @@
         <div class="tile-name all-tittles">Libros Por Autor</div>
         <div class="tile-num full-reset">15</div>
     </article>
+    {% if user.is_authenticated %}
     <article class="tile">
         <div class="tile-icon full-reset"><i class="zmdi zmdi-truck"></i></div>
         <div class="tile-name all-tittles">Pedidos Por Cliente</div>
         <div class="tile-num full-reset">9</div>
     </article>
+    {% endif %}
 </section>
-{% endif %}
 {% endblock section %}
+
+
+<!--{% if 'Administradores' ==  request.user.groups.all.0.name or user.is_superuser %} -->
+<!--{% endif %}-->

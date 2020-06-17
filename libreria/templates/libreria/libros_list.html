@@ -1,4 +1,4 @@
-{% extends 'prjaprendizjbhm/base.html' %} {% block section %}
+{% extends 'prjaprendizjbhm/base.html' %} {% block section %} 
 {% load static %}
 <div>
     <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
@@ -14,10 +14,9 @@
             <a class="navbar-brand" href="#"></a>
             <form class="form-inline my-2 my-lg-0" method="POST">
                 {% csrf_token %}
-                <input type="text" class="form-control mr-sm-2" placeholder="Buscar..." name="buscar" value="{{ request.POST.buscar }}">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-            </form>
-
+                    <input type="text" class="form-control mr-sm-4" placeholder="Buscar..." name="buscar" value="{{ request.POST.buscar }}">
+                    <button class="btn btn-outline-success my-4 my-sm-12" type="submit">Buscar</button>
+            </form> 
             <div class="table-responsive">
                 <div class="div-table" style="margin:0 !important;">
                     <div class="div-table-row div-table-row-list">
@@ -26,6 +25,7 @@
                         {% else %}
                         <table  id="datatable" class="table table-striped table-hover">
                             <thead>
+                                <th style="width:11%">Cantidad</th> 
                                 <th>ISBN</th>
                                 <th>Titulo</th>
                                 <th>Fecha de publicacion</th>
@@ -38,10 +38,14 @@
                                 {% if perms.libreria.delete_libros %}
                                 <th>Eliminar</th>
                                 {% endif %}
+                                <th>Agregar al carrito</th>
                             </thead>
                             <tbody>
                                 {% for libro in libros %}
                                 <tr>
+                                    <td data-th="Quantity">
+                                        <input type="number" class="form-control text-center" value="1">
+                                    </td>
                                     <td>{{ libro.isbn }}</td>
                                     <td>{{ libro.titulo }}</td>
                                     <td>{{ libro.fecha_pub }}</td>
@@ -56,9 +60,11 @@
                                     {% if perms.libreria.delete_libros %}
                                     <td><a href="{% url 'lib:libros_delete' libro.isbn %}" class="btn btn-danger"><i class="zmdi zmdi-delete"></i></a></td>
                                     {% endif %}
+                                    <td><a href="{% url 'lib:cart_add' libro.isbn %}" class="btn btn-success"><i class="zmdi zmdi-shopping-cart-plus"></i></a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
+                            <tr>
                         </table>
                         {% endif %}
                     </div>
@@ -67,7 +73,6 @@
         </div>
     </nav>
 </div>
-
 {% endblock section %}
 {% block js_page %}
 <script>

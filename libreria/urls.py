@@ -7,7 +7,7 @@ from .views import Home, HomeSinPrivilegios, \
     CatgeoriasNew, CategoriaEdit, CategoriaDel, \
         LibrosNew, LibrosEdit, LibrosDel, \
             LibrosPorAutorNew, LibrosPorAutorEdit, LibrosPorAutorDel, \
-                ClientesNew, ClientesEdit
+                ClientesNew, ClientesEdit, ClientesDel
 
 urlpatterns = [
     path('', Home.as_view(), name="home"),
@@ -47,8 +47,18 @@ urlpatterns = [
     # Urls clients
     path('clientes/', views.listar_clientes, name="clientes"),
     path('clientes/new', ClientesNew.as_view(), name="clientes_new"),
-    path('clientes/edit/<pk>', ),
+    path('clientes/edit/<int:pk>', ClientesEdit.as_view(), name="clientes_edit"),
+    path('clientes/delete/<int:pk>', ClientesDel.as_view(), name="clientes_delete"),
 
     
     path('pedidos_clientes/', views.listar_pedidos_clientes, name="pedidos_cliente"),
+
+
+    # Carro de compras
+    path('carro/add/<isbn>/', views.cart_add, name='cart_add'),
+    path('carro/item_clear/<isbn>/', views.item_clear, name='item_clear'),
+    path('cart/item_increment/<isbn>/',views.item_increment, name='item_increment'),
+    path('cart/item_decrement/<isbn>/',views.item_decrement, name='item_decrement'),
+    path('cart/cart_clear/', views.cart_clear, name='cart_clear'),
+    path('carro/cart-detail/',views.cart_detail, name='cart_detail')
 ]

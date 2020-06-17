@@ -24,7 +24,7 @@
     <script src="{% static 'prjaprendizjbhm/js/main.js' %}"></script>
     <script src="{% static 'prjaprendizjbhm/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'prjaprendizjbhm/datatables/dataTables.bootstrap4.min.js' %}"></script>
-    <script src="{% static  'prjaprendizjbhm/jquery_confirm/jquery-confirm.min.js' %}"></script>
+    <script src="{% static 'prjaprendizjbhm/jquery_confirm/jquery-confirm.min.js' %}"></script>
 </head>
 <body>
     <div class="navbar-lateral full-reset">
@@ -52,10 +52,10 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Cleintes <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Clientes <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="{% url 'lib:clientes' %}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Cleintes</a></li>
-                            <li><a href="{% url 'lib:pedidos_cliente' %}"><i class="zmdi zmdi-truck zmdi-hc-fw"></i>&nbsp;&nbsp; Pedidos Por Cleintes</a></li>
+                            <li><a href="{% url 'lib:clientes' %}"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Clientes</a></li>
+                            <li><a href="{% url 'lib:pedidos_cliente' %}"><i class="zmdi zmdi-truck zmdi-hc-fw"></i>&nbsp;&nbsp; Pedidos Por Clientes</a></li>
                         </ul>
                     </li>
                     {% endif %}
@@ -81,25 +81,26 @@
     </div>
     <div class="content-page-container full-reset custom-scroll-containers">
         <nav class="navbar-user-top full-reset">
+        <ul class="list-unstyled full-reset">
         {% if user.is_authenticated %}
-            <ul class="list-unstyled full-reset">
-                <figure>
-                   <img src="{% static 'prjaprendizjbhm/assets/img/user01.png' %}" alt="user-picture" class="img-responsive img-circle center-box mCS_img_loaded">
-                </figure>   
-                <li style="color:#fff; cursor:default;">
-                    <span class="all-tittles">{{ user.username }}</span>
-                </li>
-                <li class="tooltips-general exit-system-button" data-href="{% url 'lib:logout' %}" data-placement="bottom" title="Salir del sistema">
-                    <i class="zmdi zmdi-power"></i>
-                </li>
-            </ul>
+            <figure>
+                <img src="{% static 'prjaprendizjbhm/assets/img/user01.png' %}" alt="user-picture" class="img-responsive img-circle center-box mCS_img_loaded">
+            </figure>   
+            <li style="color:#fff; cursor:default;">
+                <span class="all-tittles">{{ user.username }}</span>
+            </li>
+            <li class="tooltips-general exit-system-button" data-href="{% url 'lib:logout' %}" data-placement="bottom" title="Salir del sistema">
+                <i class="zmdi zmdi-power"></i>
+            </li>
         {% else %}
-            <ul class="list-unstyled full-reset">
-                <li class="tooltips-general" onclick="window.location.href='{% url 'lib:login' %}'" data-placement="bottom" title="Ingresar al sistema">
-                    <i class="zmdi zmdi-key">  Ingrese al sistema </i>
-                </li>
-            </ul>
+            <li class="tooltips-general" onclick="window.location.href='{% url 'lib:login' %}'" data-placement="bottom" title="Ingresar al sistema">
+                <i class="zmdi zmdi-key">  Ingrese al sistema </i>
+            </li>
         {% endif %}
+            <li class="tooltips-general" onclick="window.location.href='{% url 'lib:cart_detail' %}" data-placement="bottom" title="Carrito de compras">
+                <a href="{% url 'lib:cart_detail' %}"> <i class="zmdi zmdi-shopping-cart"></i></a>
+            </li>
+        </ul>
         </nav>
         <div class="container">
             <div class="page-header">
